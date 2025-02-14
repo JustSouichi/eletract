@@ -1,22 +1,7 @@
 # eletract
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/JustSouichi/eletract/refs/heads/main/img/logo.svg" width="200" height="179" alt="">
-  <br><strong>Command-line tool for monitoring financial data and market trends in real-time directly from your terminal.</strong>
-  <br><a href="https://github.com/JustSouichi/eletract">GitHub Repository</a>
-</p>
-
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://raw.githubusercontent.com/JustSouichi/eletract/refs/heads/main/LICENSE)
-[![GitHub issues](https://img.shields.io/github/issues/JustSouichi/eletract.svg)](https://github.com/JustSouichi/eletract/issues)
-[![GitHub stars](https://img.shields.io/github/stars/JustSouichi/eletract.svg?style=social&label=Stars)](https://github.com/JustSouichi/eletract/stargazers)
-[![Downloads](https://img.shields.io/npm/dt/eletract.svg)](https://www.npmjs.com/package/eletract)
-
----
-
-# Eletract
-
-<p align="center">
-  <img src="https://raw.githubusercontent.com/JustSouichi/eletract/refs/heads/main/img/logo.svg" width="200" height="179" alt="Eletract Logo">
+  <img src="https://raw.githubusercontent.com/JustSouichi/eletract/refs/heads/main/assets/banner.png" alt="Eletract Logo">
   <br><strong>Command-line tool for creating React + Electron apps with ease.</strong>
   <br><a href="https://github.com/JustSouichi/eletract">GitHub Repository</a>
 </p>
