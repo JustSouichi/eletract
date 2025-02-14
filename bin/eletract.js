@@ -28,7 +28,7 @@ function createProject(projectDirectory, options) {
     process.exit(1);
   }
 
-  // **New Step: Install web-vitals**
+  // Step 3: Install web-vitals
   console.log('Installing web-vitals...');
   try {
     execSync(`npm install web-vitals`, { stdio: 'inherit' });
@@ -37,7 +37,16 @@ function createProject(projectDirectory, options) {
     process.exit(1);
   }
 
-  // Step 3: Create the electron folder and electron.js file
+  // Step 4: Install concurrently (to run multiple commands) and wait-on (to wait for the dev server)
+  console.log('Installing concurrently and wait-on...');
+  try {
+    execSync(`npm install concurrently wait-on --save-dev`, { stdio: 'inherit' });
+  } catch (error) {
+    console.error('Error while installing concurrently or wait-on:', error);
+    process.exit(1);
+  }
+
+  // Step 5: Create the electron folder and electron.js file
   const electronFolder = path.join(process.cwd(), 'electron');
   if (!fs.existsSync(electronFolder)) {
     fs.mkdirSync(electronFolder);
@@ -56,6 +65,7 @@ function createWindow() {
   
   // and load the React app on localhost.
   mainWindow.loadURL('http://localhost:3000');
+
 }
 
 app.whenReady().then(() => {
@@ -69,10 +79,9 @@ app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit();
 });
 `;
-
   fs.writeFileSync(electronFilePath, electronCode);
 
-  // Step 4: Update package.json with the main field and electron script
+  // Step 6: Update package.json with main field and scripts for electron and dev
   const packageJsonPath = path.join(process.cwd(), 'package.json');
   let packageJson;
   try {
@@ -84,14 +93,23 @@ app.on('window-all-closed', () => {
 
   packageJson.main = "./electron/electron.js";
   packageJson.scripts = packageJson.scripts || {};
+
+  // Script to start Electron
   packageJson.scripts.electron = "electron .";
+
+  // Script to run React and Electron concurrently with wait-on
+  // This waits for http://localhost:3000 to be ready before starting Electron.
+  packageJson.scripts.dev = "concurrently \"npm start\" \"wait-on http://localhost:3000 && npm run electron\"";
 
   fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
 
   console.log('Project setup complete!');
   console.log('Next steps:');
-  console.log('  1. Open one terminal and run: npm start');
-  console.log('  2. Open a second terminal and run: npm run electron');
+  console.log('  1. To run both React and Electron concurrently, run: npm run dev');
+  console.log('     (Electron will wait for the React dev server to be ready before loading the page.)');
+  console.log('  2. Alternatively, run in separate terminals:');
+  console.log('       Terminal 1: npm start');
+  console.log('       Terminal 2: npm run electron');
 }
 
 program
